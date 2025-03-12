@@ -135,10 +135,88 @@
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             cursor: grab;
             z-index: 3;
+            transition: transform 0.2s;
         }
         
         .food-egg:active {
             cursor: grabbing;
+        }
+        
+        .food-egg-arm {
+            position: absolute;
+            width: 5px;
+            height: 15px;
+            background-color: inherit;
+            border-radius: 5px;
+            top: 20px;
+        }
+        
+        .food-egg-arm.left {
+            left: -2px;
+            transform: rotate(30deg);
+        }
+        
+        .food-egg-arm.right {
+            right: -2px;
+            transform: rotate(-30deg);
+        }
+        
+        .food-egg-leg {
+            position: absolute;
+            width: 5px;
+            height: 12px;
+            background-color: inherit;
+            border-radius: 5px;
+            bottom: -8px;
+        }
+        
+        .food-egg-leg.left {
+            left: 10px;
+        }
+        
+        .food-egg-leg.right {
+            right: 10px;
+        }
+        
+        @keyframes wobble {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        @keyframes jump {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .wobble {
+            animation: wobble 0.5s infinite;
+        }
+        
+        .jump {
+            animation: jump 0.5s infinite;
+        }
+        
+        /* Special dance animation */
+        @keyframes specialDance {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(-10deg); }
+            20% { transform: rotate(10deg); }
+            30% { transform: rotate(-10deg); }
+            40% { transform: rotate(10deg); }
+            50% { transform: rotate(180deg); }
+            60% { transform: translateY(10px) scaleY(0.8); }
+            70% { transform: translateY(10px) scaleY(0.8) rotate(180deg); }
+            80% { transform: translateY(10px) scaleY(0.8) rotate(190deg); }
+            90% { transform: translateY(10px) scaleY(0.8) rotate(170deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        #main-egg.special-dance {
+            animation: specialDance 3s;
         }
         
         #basket {
@@ -163,6 +241,57 @@
             font-weight: bold;
         }
         
+        #buy-more-dialog {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            display: none;
+        }
+        
+        #buy-more-dialog h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        #buy-more-dialog .buttons {
+            margin-top: 20px;
+        }
+        
+        #buy-more-dialog button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        #yes-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #no-button {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        #yes-button:hover {
+            background-color: #45a049;
+        }
+        
+        #no-button:hover {
+            background-color: #d32f2f;
+        }
+        
         .eating {
             height: 80px !important;
         }
@@ -184,6 +313,15 @@
         </div>
         <div id="basket">Eggs: <span id="eggs-count">10</span></div>
         <div id="score">Score: <span id="score-count">0</span></div>
+        
+        <div id="buy-more-dialog">
+            <h2>You are out of eggs!</h2>
+            <p>Would you like to buy more eggs?</p>
+            <div class="buttons">
+                <button id="yes-button">Yes</button>
+                <button id="no-button">No</button>
+            </div>
+        </div>
     </div>
 
     <audio id="eat-sound" src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAASAAAeMwAUFBQUFCgUFBQUFDMzMzMzM0dHR0dHR1tbW1tbW2ZmZmZmZnp6enp6eo+Pj4+Pj6Ojo6Ojo7e3t7e3t8zMzMzMzOHh4eHh4fX19fX19QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQxOaAJeYFH/MeABMCgqP+Y8ACEEjP5e2UwggxMUCBAhBAQQ4g+D4Pg+D4Pg+CAIHEOIcQ4hwfB8HwfB8HwfBAEAQOIcQ4hwfB8HwfB8HwfBAIAgcQ4hxDg+D4Pg+D4Pg+CAIBAnEOIcQ4Pg+D4Pg+D4PggCAQBwIBg4hw" preload="auto"></audio>
@@ -235,6 +373,34 @@
                 const saturation = 80 + Math.floor(Math.random() * 20);
                 const lightness = 80 + Math.floor(Math.random() * 15);
                 egg.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                
+                // Add arms and legs to the egg
+                const leftArm = document.createElement('div');
+                leftArm.className = 'food-egg-arm left';
+                leftArm.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness-10}%)`;
+                egg.appendChild(leftArm);
+                
+                const rightArm = document.createElement('div');
+                rightArm.className = 'food-egg-arm right';
+                rightArm.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness-10}%)`;
+                egg.appendChild(rightArm);
+                
+                const leftLeg = document.createElement('div');
+                leftLeg.className = 'food-egg-leg left';
+                leftLeg.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness-10}%)`;
+                egg.appendChild(leftLeg);
+                
+                const rightLeg = document.createElement('div');
+                rightLeg.className = 'food-egg-leg right';
+                rightLeg.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness-10}%)`;
+                egg.appendChild(rightLeg);
+                
+                // Add animation
+                if (Math.random() > 0.5) {
+                    egg.classList.add('wobble');
+                } else {
+                    egg.classList.add('jump');
+                }
                 
                 // Make eggs draggable
                 egg.addEventListener('mousedown', startDrag);
@@ -309,6 +475,13 @@
             score += 10;
             scoreCount.textContent = score;
             
+            // Check if special dance should be triggered
+            if (score >= 200 && score % 100 === 0) {
+                setTimeout(() => {
+                    playSpecialDance();
+                }, 600);
+            }
+            
             // Wait for animation to complete
             setTimeout(() => {
                 egg.remove();
@@ -326,11 +499,32 @@
                 // Check for game over
                 if (totalEggs <= 0 && currentEggs === 0) {
                     setTimeout(() => {
-                        alert(`Game Over! Your score: ${score}`);
-                        resetGame();
+                        showBuyMoreDialog();
                     }, 500);
                 }
             }, 500);
+        }
+        
+        function showBuyMoreDialog() {
+            const buyMoreDialog = document.getElementById('buy-more-dialog');
+            buyMoreDialog.style.display = 'block';
+            
+            // Setup button event listeners
+            document.getElementById('yes-button').addEventListener('click', () => {
+                buyMoreDialog.style.display = 'none';
+                addMoreEggs();
+            });
+            
+            document.getElementById('no-button').addEventListener('click', () => {
+                buyMoreDialog.style.display = 'none';
+                resetGame();
+            });
+        }
+        
+        function addMoreEggs() {
+            totalEggs = 10;
+            eggsCount.textContent = totalEggs;
+            createEggs(3);
         }
         
         function resetGame() {
@@ -344,6 +538,16 @@
             
             // Create new eggs
             createEggs(3);
+        }
+        
+        function playSpecialDance() {
+            // Show special dance animation
+            mainEgg.classList.add('special-dance');
+            
+            // Remove animation class after it completes
+            setTimeout(() => {
+                mainEgg.classList.remove('special-dance');
+            }, 3000);
         }
         
         // Make the game responsive
